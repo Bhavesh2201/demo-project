@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 
 class OTP extends StatelessWidget {
   OTP({super.key});
@@ -26,21 +29,24 @@ class OTP extends StatelessWidget {
             ),
             Column(
               children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Enter OTP',
-                  ),
-                  keyboardType: TextInputType.number,
-                  maxLength: 10,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter valid otp';
-                    } else if (value.length != 10) {
-                      return 'OTP should be 6 digits long';
-                    } else {
-                      return null;
-                    }
+                OTPTextField(
+                  length: 6,
+                  width: MediaQuery.of(context).size.width,
+                  fieldWidth: 50,
+                  style: TextStyle(fontSize: 17),
+                  textFieldAlignment: MainAxisAlignment.spaceAround,
+                  fieldStyle: FieldStyle.underline,
+                  onCompleted: (pin) {
+                    print("Completed: " + pin);
                   },
+                  onChanged: (pin) {
+                    print("Changed: " + pin);
+                  },
+                  inputFormatter: <TextInputFormatter>[
+                    LengthLimitingTextInputFormatter(
+                        6), // Set maximum length to 6
+                    FilteringTextInputFormatter.digitsOnly, // Allow only digits
+                  ],
                 )
               ],
             ),
@@ -49,7 +55,9 @@ class OTP extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  print('successfully login.');
+                },
                 style: ButtonStyle(
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.white),
