@@ -10,6 +10,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: 'login',
+      routes: {
+        'login_screen': (context) => Login(),
+        'otp_screen': (context) => OTP(),
+      },
       home: Login(),
     );
   }
