@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         'login_screen': (context) => Login(),
         'otp_screen': (context) => OTP(),
       },
-      home: Login(),
+      home: Login(),    
     );
   }
 }
